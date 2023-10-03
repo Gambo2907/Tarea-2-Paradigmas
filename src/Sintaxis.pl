@@ -83,7 +83,7 @@ preposicion([para|S],S).
 preposicion([por|S],S).
 
 
-PR+VERBO
+
 
 %Sintagmas-------------------------------------------------------------------------------
 
