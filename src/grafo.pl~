@@ -1,7 +1,73 @@
-conexion(a,b,3).
-conexion(b,c,4).
-conexion(a,c,6).
+%nodos que pertenecen al grafo
+
+nodo(sanjose).
+nodo(corralillo).
+nodo(musgoverde).
+nodo(tresrios).
+nodo(cartago).
+nodo(pacayas).
+nodo(cervantes).
+nodo(paraiso).
+nodo(cachi).
+nodo(orosi).
+nodo(turrialba).
+nodo(juanvinas).
+
+%aristas que pertenecen al grafo
+
+arista(sanjose,corralillo,22).
+arista(corralillo,sanjose,22).
+arista(sanjose,cartago,20).
+arista(corralillo,musgoverde,6).
+arista(musgoverde,corralillo,6).
+arista(musgoverde,cartago,10).
+arista(cartago,sanjose,20).
+arista(cartago,musgoverde,10).
+arista(cartago,pacayas,13).
+arista(cartago,tresrios,8).
+arista(cartago,paraiso,10).
+arista(tresrios,sanjose,8).
+arista(tresrios,pacayas,15).
+arista(pacayas,tresrios,15).
+arista(pacayas,cartago,13).
+arista(pacayas,cervantes,8).
+arista(cervantes,pacayas,8).
+arista(cervantes,juanvinas,5).
+arista(cervantes,cachi,7).
+arista(paraiso,cachi,10).
+arista(paraiso,orosi,8).
+arista(paraiso,cervantes,4).
+arista(juanvinas,turrialba,4).
+arista(turrialba,pacayas,18).
+arista(turrialba,cachi,40).
+arista(cachi,turrialba,40).
+arista(cachi,cervantes,7).
+arista(cachi,paraiso,10).
+arista(cachi,orosi,12).
+arista(orosi,paraiso,8).
+arista(orosi,cachi,12).
+
+findapath(X, Y, W, [X,Y], _) :- arista(X, Y, W). % findapath between X and Y has weight W  if there is an edge between X and Y of weight W
+findapath(X, Y, W, [X|P], V) :-                % else findapath between X and Y
+	\+ member(X, V),                       % is true
+	arista(X, Z, W1),                        % if we can findapath between X and Z with weight W1
+	findapath(Z, Y, W2, P, [X|V]),         % and there is findapat between Z and Y of weight W2
+	W is W1 + W2.                          % where W is W1 + W2
+
+:-dynamic(solution/2).
+findminpath(Ini, Fin, W, P) :-
+	\+ solution(_, _),
+	findapath(Ini, Fin, W1, P1, []),
+	assertz(solution(W1, P1)),
+	!, findminpath(Ini,Fin,W,P).
+
+findminpath(Ini, Fin, _, _) :-
+	findapath(Ini, Fin, W1, P1, []),
+	solution(W2, P2),
+	W1 < W2,
+	retract(solution(W2, P2)),
+	asserta(solution(W1, P1)), fail.
+
+findminpath(_, _, W, P) :- solution(W,P), retract(solution(W,P)).
 
 
-camino(Inicio,Final,Intermedio,Peso) :-
-    conexion(Inicio,Intermedio,P1) , conexion(Intermedio,Final,P2), Peso is P1+P2.
