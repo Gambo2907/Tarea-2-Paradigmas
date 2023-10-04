@@ -11,6 +11,7 @@ miembro(Elemento,[_|Resto]):- miembro(Elemento,Resto).
 miembro(Elem,[Elem|_]).
 
 
+
 %Para buscar el lugar en una lista de palabras
 buscar_lugar(Input,Destino):- miembro(Destino,Input), lugar([Destino],[]),!.
 buscar_establecimiento(Input,Establecimiento):- miembro(Establecimiento,Input), establecimiento([Establecimiento],[]),!.
@@ -25,6 +26,33 @@ obtener_lugar(L0, L) :-
 % Predicado para dividir una cadena en palabras
 dividir_palabras(Cadena, Palabras) :-
     atomic_list_concat(Palabras, ' ', Cadena).
+
+suma(X, Y, Z) :- Z is X + Y.
+
+
+quitar_primero([_|Resto], Resto).
+
+unir(Lista1, Lista2, Resultado) :-
+    append(Lista1, Lista2, Resultado).
+
+buscar(X,Y,'no',KM,P,KM2, P2,KM3,P3,P4) :-
+    findminpath(X,Y,Km,P),
+    format('La ruta más corta es la siguiente. KM: ~w Ruta mas corta: ~w~n', [Km,P]).
+
+
+
+buscar(X,Y,Z,KM,P,KM2, P2,KM3,P3,P4) :-
+    findminpath(X,Z,Km,P),
+    findminpath(Z,Y,Km2,P2),
+    suma(Km,Km2,Km3),
+    quitar_primero(P2,P4),
+    unir(P,P4,P3),
+    format('La ruta más corta es la siguiente. KM: ~w Ruta mas corta: ~w~n', [Km3,P3]).
+
+
+
+
+
 
 % Pruebas de interfaz
 testeo :-
@@ -42,6 +70,7 @@ testeo :-
     dividir_palabras(Oracion2, ListaPalabras2),
     oracion(ListaPalabras2, L2),
     buscar_lugar(ListaPalabras2, Y),
+<<<<<<< HEAD
     nl,
     write('Perfecto, ¿tiene algun destino intermedio?: '),
     read_line_to_string(user_input,Oracion3),
@@ -54,6 +83,16 @@ testeo :-
     format('La ruta más corta es la siguiente. ~w km.  Ruta mas corta: ~w~n', [Km, P]),
     nl,
     format('Gracias por utilizar Wazelog').
+=======
+    write('Excelente, ¿Tiene algún destino intermedio?: '),
+    %hola wazelog estoy en ...
+    read_line_to_string(user_input, Oracion3),
+    dividir_palabras(Oracion3, ListaPalabras3),
+    oracion(ListaPalabras3, L3),%Esto comprueba que la oracion tenga la sintaxis correcta
+    buscar_lugar(ListaPalabras3, Z),%Obtiene el lugar del texto ingresado
+    format('Oracion: ~w Lugar: ~w~n', [L3, Z]),
+    buscar(X,Y,Z,KM,P,KM2, P2,KMT, P3,P4).
+>>>>>>> 0d1c3eb82f007e1f316e58feb729b20ca9d88b79
 
 
 
