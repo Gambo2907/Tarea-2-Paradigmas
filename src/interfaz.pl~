@@ -3,7 +3,7 @@
 %TENNGO QUE HACER MAS PRUEBAS CON LA GRAMATICA
 %PORQUE DA ALGUNOS ERRORES CON ALGUNAS ORACIONES
 %DE ENTRADA ACEPTA "en turrialba" o 'estoy en turrialba'
-
+%voy para "destino"
 
 
 %Funcion miembro
@@ -27,19 +27,21 @@ dividir_palabras(Cadena, Palabras) :-
 
 % Pruebas de interfaz
 testeo :-
+    write('Bienvenido a Wazelog la mejor lógica para llegar a su destino'),
+    nl,
     write('Ingrese donde esta: '),
     read_line_to_string(user_input, Oracion),
     dividir_palabras(Oracion, ListaPalabras),
     oracion(ListaPalabras, L),%Esto comprueba que la oracion tenga la sintaxis correcta
     buscar_lugar(ListaPalabras, X),%Obtiene el lugar del texto ingresado
-    format('Oracion: ~s Lugar: ~s~n', [L, X]),
-    write('Ingrese donde va: '),
+    format('Oracion: ~w Lugar: ~w~n', [L, X]),
+    write('Muy bien, ¿cual es su destino?: '),
     read_line_to_string(user_input,Oracion2),
     dividir_palabras(Oracion2, ListaPalabras2),
     oracion(ListaPalabras2, L2),
     buscar_lugar(ListaPalabras2, Y),
     findminpath(X,Y,Km,P),
-    format('KM: ~s Ruta mas corta: ~s~n', [Km, Y]).
+    format('La ruta más corta es la siguiente. KM: ~w Ruta mas corta: ~w~n', [Km, P]).
 
 
 

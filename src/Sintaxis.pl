@@ -64,11 +64,12 @@ articulo([la|S],S).
 articulo([las|S],S).
 
 
-
+saludo([hola|S],S).
+saludo([hey|S],S).
 
 conjucion([que|S],S).
 
-
+nombre([wazelog|S],S).
 
 preposicion([a|S],S).
 preposicion([ante|S],S).
@@ -107,7 +108,10 @@ sintagma_nominal(L, S):-
 sintagma_nominal(L, S):-
     articulo(L,S1),
     lugar(S1,S).
-
+%Ej hola wazelog
+sintagma_nominal(L,S):-
+    saludo(L,S1),
+    nombre(S1,S).
 %Ej:hacia cartago, para cartago, para el orosi
 sintagma_nominal(L, S):-
     preposicion(L,S1),
@@ -139,6 +143,10 @@ sintagma_verbal(L,S):-
     verbo(S2, S3),
     sintagma_nominal(S3,S).
 
+sintagma_verbal(L,S):-
+    verbo(L,S1),
+    preposicion(S1,S2),
+    sintagma_nominal(S2,S).
 
 
 
