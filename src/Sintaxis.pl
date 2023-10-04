@@ -10,6 +10,8 @@ lugar([juanvinas|S],S).
 lugar([turrialba|S],S).
 lugar([cachi|S],S).
 lugar([orosi|S],S).
+lugar([no|S],S).
+
 
 pronombre([yo|S],S).
 pronombre([nosotros|S],S).
@@ -82,6 +84,8 @@ preposicion([hacia|S],S).
 preposicion([hasta|S],S).
 preposicion([para|S],S).
 preposicion([por|S],S).
+
+negacion([no|S],S).
 
 
 
