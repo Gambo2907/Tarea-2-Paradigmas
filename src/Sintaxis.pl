@@ -10,6 +10,8 @@ lugar([juanvinas|S],S).
 lugar([turrialba|S],S).
 lugar([cachi|S],S).
 lugar([orosi|S],S).
+establecimiento([supermercado|S],S).
+establecimiento([farmacia|S],S).
 
 pronombre([yo|S],S).
 pronombre([nosotros|S],S).
@@ -44,7 +46,7 @@ verbo([ubicamos|S],S).
 verbo([encuentra|S],S).
 verbo([encontrar|S],S).
 verbo([llegar|S],S).
-
+verbo([gustaria|S],S).
 verbo([quiero|S],S).
 verbo([queremos|S],S).
 verbo([necesito|S],S).
@@ -53,7 +55,7 @@ verbo([necesitamos|S],S).
 verbo([es|S],S).
 
 
-
+articulo([a|S],S).
 articulo([un|S],S).
 articulo([una|S],S).
 articulo([unos|S],S).
@@ -62,7 +64,7 @@ articulo([el|S],S).
 articulo([los|S],S).
 articulo([la|S],S).
 articulo([las|S],S).
-
+articulo([al|S],S).
 
 saludo([hola|S],S).
 saludo([hey|S],S).
@@ -70,6 +72,10 @@ saludo([hey|S],S).
 conjucion([que|S],S).
 
 nombre([wazelog|S],S).
+nombre_lugar([automercado|S],S).
+nombre_lugar([pali|S],S).
+nombre_lugar([fischel|S],S).
+nombre_lugar([ampm|S],S).
 
 preposicion([a|S],S).
 preposicion([ante|S],S).
@@ -87,6 +93,14 @@ preposicion([por|S],S).
 
 
 %Sintagmas-------------------------------------------------------------------------------
+sintagma_nominal(L,S):-
+    pronombre_reflexivo(L,S1),
+    verbo(S1,S).
+sintagma_nominal(L,S):-
+    nombre(L,S).
+
+sintagma_nominal(L,S):-
+    establecimiento(L,S).
 
 sintagma_nominal(L, S):-
     pronombre(L,S).
@@ -108,6 +122,10 @@ sintagma_nominal(L, S):-
 sintagma_nominal(L, S):-
     articulo(L,S1),
     lugar(S1,S).
+
+sintagma_nominal(L, S):-
+    articulo(L,S1),
+    establecimiento(S1,S).
 %Ej hola wazelog
 sintagma_nominal(L,S):-
     saludo(L,S1),
@@ -122,7 +140,9 @@ sintagma_nominal(L, S):-
     preposicion(S1,S2),
     sintagma_nominal(S2,S).
 
-
+sintagma_nominal(L, S):-
+    articulo(L,S1),
+    nombre_lugar(S1,S).
 %Sintagma Verbal ---------------------------------------------------------------------------
 
 %Ej:viajar hacia cartago, estoy en cartago

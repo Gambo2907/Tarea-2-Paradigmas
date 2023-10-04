@@ -70,3 +70,5 @@ findminpath(Ini, Fin, _, _) :-
 
 findminpath(_, _, W, P) :- solution(W,P), retract(solution(W,P)).
 
+
+

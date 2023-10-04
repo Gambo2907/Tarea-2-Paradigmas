@@ -13,6 +13,7 @@ miembro(Elem,[Elem|_]).
 
 %Para buscar el lugar en una lista de palabras
 buscar_lugar(Input,Destino):- miembro(Destino,Input), lugar([Destino],[]),!.
+buscar_establecimiento(Input,Establecimiento):- miembro(Establecimiento,Input), establecimiento([Establecimiento],[]),!.
 
 %ESTO NO SE ESTA USANDO
 obtener_lugar(L0, L) :-
@@ -35,14 +36,24 @@ testeo :-
     dividir_palabras(Oracion, ListaPalabras),
     oracion(ListaPalabras, L),%Esto comprueba que la oracion tenga la sintaxis correcta
     buscar_lugar(ListaPalabras, X),%Obtiene el lugar del texto ingresado
-    format('Oracion: ~w Lugar: ~w~n', [L, X]),
+    format('Oracion: ~w Lugar: ~w~n', [ListaPalabras, X]),
     write('Muy bien, ¿cual es su destino?: '),
     read_line_to_string(user_input,Oracion2),
     dividir_palabras(Oracion2, ListaPalabras2),
     oracion(ListaPalabras2, L2),
     buscar_lugar(ListaPalabras2, Y),
+    nl,
+    write('Perfecto, ¿tiene algun destino intermedio?: '),
+    read_line_to_string(user_input,Oracion3),
+    dividir_palabras(Oracion3, ListaPalabras3),
+    oracion(ListaPalabras3, L3),
+    buscar_establecimiento(ListaPalabras3, Z),
+    format('Oracion: ~w Establecimiento: ~w~n', [ListaPalabras3, Z]),
+    nl,
     findminpath(X,Y,Km,P),
-    format('La ruta más corta es la siguiente. KM: ~w Ruta mas corta: ~w~n', [Km, P]).
+    format('La ruta más corta es la siguiente. ~w km.  Ruta mas corta: ~w~n', [Km, P]),
+    nl,
+    format('Gracias por utilizar Wazelog').
 
 
 

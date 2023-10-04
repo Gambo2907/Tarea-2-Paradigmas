@@ -30,18 +30,22 @@ testeo :-
     write('Bienvenido a Wazelog la mejor lógica para llegar a su destino'),
     nl,
     write('Ingrese donde esta: '),
+    %hola wazelog estoy en ...
     read_line_to_string(user_input, Oracion),
     dividir_palabras(Oracion, ListaPalabras),
     oracion(ListaPalabras, L),%Esto comprueba que la oracion tenga la sintaxis correcta
     buscar_lugar(ListaPalabras, X),%Obtiene el lugar del texto ingresado
-    format('Oracion: ~w Lugar: ~w~n', [L, X]),
+    format('Oracion: ~w Lugar: ~w~n', [ListaPalabras, X]),
     write('Muy bien, ¿cual es su destino?: '),
     read_line_to_string(user_input,Oracion2),
     dividir_palabras(Oracion2, ListaPalabras2),
     oracion(ListaPalabras2, L2),
     buscar_lugar(ListaPalabras2, Y),
+    nl,
     findminpath(X,Y,Km,P),
-    format('La ruta más corta es la siguiente. KM: ~w Ruta mas corta: ~w~n', [Km, P]).
+    format('La ruta más corta es la siguiente. ~w km.  Ruta mas corta: ~w~n', [Km, P]),
+    nl,
+    format('Gracias por utilizar Wazelog').
 
 
 
