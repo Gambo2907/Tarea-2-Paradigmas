@@ -39,7 +39,7 @@ testeo :-
     oracion(ListaPalabras2, L2),
     buscar_lugar(ListaPalabras2, Y),
     findminpath(X,Y,Km,P),
-    format('KM: ~w Ruta mas corta: ~w~n', [Km, P]).
+    format('KM: ~s Ruta mas corta: ~s~n', [Km, Y]).
 
 
 

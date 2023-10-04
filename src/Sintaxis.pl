@@ -157,17 +157,17 @@ oracion(L,S):-
 oracion(L,S):-
     sintagma_verbal(L,S).
 
-%Ej:nuestro destino es llegar a cartago 
+%Ej:nuestro destino es llegar a cartago
 oracion(L,S):-
     sintagma_nominal(L,S1),
     sintagma_verbal(S1,S).
 
 
 oracion(L,S):-
-    pronombre_reflexivo(L,S1)
+    pronombre_reflexivo(L,S1),
     verbo(S1,S2),
     sintagma_nominal(S2,S).
- 
+
 
 
 
