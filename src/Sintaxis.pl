@@ -15,6 +15,13 @@ establecimiento([supermercado|S],S).
 establecimiento([farmacia|S],S).
 =======
 lugar([no|S],S).
+lugar([supermercado|S],S).
+lugar([automercado|S],S).
+lugar([peri|S],S).
+lugar([walmart|S],S).
+lugar([pali|S],S).
+lugar([maxipali|S],S).
+
 
 >>>>>>> 0d1c3eb82f007e1f316e58feb729b20ca9d88b79
 
