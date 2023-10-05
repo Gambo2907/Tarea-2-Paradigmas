@@ -37,7 +37,28 @@ unir(Lista1, Lista2, Resultado) :-
 
 buscar(X,Y,'no',KM,P,KM2, P2,KM3,P3,P4) :-
     findminpath(X,Y,Km,P),
-    format('La ruta más corta es la siguiente. KM: ~w Ruta mas corta: ~w~n', [Km,P]).
+    format('La ruta mÃ¡s corta es la siguiente. KM: ~w Ruta mas corta: ~w~n', [Km,P]).
+
+
+buscar(X,Y,'supermercado',KM,P,KM2, P2,KM3,P3,P4) :-
+    write('Â¿CuÃ¡l supermercado?; '),
+    read_line_to_string(user_input, Oracion3),
+    dividir_palabras(Oracion3, ListaPalabras3),
+    oracion(ListaPalabras3, L3),%Esto comprueba que la oracion tenga la sintaxis correcta
+    buscar_lugar(ListaPalabras3, A),%Obtiene el lugar del texto ingresado
+    format('Â¿Donde queda ~w?: ', [A]),
+    read_line_to_string(user_input, Oracion4),
+    dividir_palabras(Oracion4, ListaPalabras4),
+    oracion(ListaPalabras4, L4),%Esto comprueba que la oracion tenga la sintaxis correcta
+    buscar_lugar(ListaPalabras4, B),%Obtiene el lugar del texto ingresado
+    format('Oracion: ~w Lugar: ~w~n', [L4, B]),
+    findminpath(X,B,Km,P),
+    findminpath(B,Y,Km2,P2),
+    suma(Km,Km2,Km3),
+    quitar_primero(P2,P4),
+    unir(P,P4,P3),
+    format('La ruta mÃ¡s corta es la siguiente. KM: ~w Ruta mas corta: ~w~n', [Km3,P3]).
+
 
 
 
@@ -47,7 +68,7 @@ buscar(X,Y,Z,KM,P,KM2, P2,KM3,P3,P4) :-
     suma(Km,Km2,Km3),
     quitar_primero(P2,P4),
     unir(P,P4,P3),
-    format('La ruta más corta es la siguiente. KM: ~w Ruta mas corta: ~w~n', [Km3,P3]).
+    format('La ruta mÃ¡s corta es la siguiente. KM: ~w Ruta mas corta: ~w~n', [Km3,P3]).
 
 
 
@@ -56,7 +77,7 @@ buscar(X,Y,Z,KM,P,KM2, P2,KM3,P3,P4) :-
 
 % Pruebas de interfaz
 testeo :-
-    write('Bienvenido a Wazelog la mejor lógica para llegar a su destino'),
+    write('Bienvenido a Wazelog la mejor lÃ³gica para llegar a su destino'),
     nl,
     write('Ingrese donde esta: '),
     %hola wazelog estoy en ...
@@ -65,14 +86,14 @@ testeo :-
     oracion(ListaPalabras, L),%Esto comprueba que la oracion tenga la sintaxis correcta
     buscar_lugar(ListaPalabras, X),%Obtiene el lugar del texto ingresado
     format('Oracion: ~w Lugar: ~w~n', [ListaPalabras, X]),
-    write('Muy bien, ¿cual es su destino?: '),
+    write('Muy bien, Â¿cual es su destino?: '),
     read_line_to_string(user_input,Oracion2),
     dividir_palabras(Oracion2, ListaPalabras2),
     oracion(ListaPalabras2, L2),
     buscar_lugar(ListaPalabras2, Y),
 <<<<<<< HEAD
     nl,
-    write('Perfecto, ¿tiene algun destino intermedio?: '),
+    write('Perfecto, Â¿tiene algun destino intermedio?: '),
     read_line_to_string(user_input,Oracion3),
     dividir_palabras(Oracion3, ListaPalabras3),
     oracion(ListaPalabras3, L3),
@@ -80,11 +101,11 @@ testeo :-
     format('Oracion: ~w Establecimiento: ~w~n', [ListaPalabras3, Z]),
     nl,
     findminpath(X,Y,Km,P),
-    format('La ruta más corta es la siguiente. ~w km.  Ruta mas corta: ~w~n', [Km, P]),
+    format('La ruta mÃ¡s corta es la siguiente. ~w km.  Ruta mas corta: ~w~n', [Km, P]),
     nl,
     format('Gracias por utilizar Wazelog').
 =======
-    write('Excelente, ¿Tiene algún destino intermedio?: '),
+    write('Excelente, Â¿Tiene algÃºn destino intermedio?: '),
     %hola wazelog estoy en ...
     read_line_to_string(user_input, Oracion3),
     dividir_palabras(Oracion3, ListaPalabras3),
