@@ -54,8 +54,7 @@ buscar(X,Y,Z,KM,P,KM2, P2,KM3,P3,P4) :-
 
 
 consultar_inicio(Inicio):-
-    write('Bienvenido a Wazelog la mejor logica para llegar a su destino'),
-    nl,
+
     write("Wazelog: Por favor indique donde se encuentra"), nl,
     read_line_to_string(user_input, Oracion),
     dividir_palabras(Oracion, ListaPalabras),
@@ -75,12 +74,12 @@ consultar_destino(Destino):-
 consultar_destino(Destino):- mensaje_error, nl, consultar_destino(Destino).
 
 busqueda_intermedio_positiva(Inicio,Destino,Oracion,Z,Int):-
-    write("¿A cual ... quiere ir?"),
+    write("¿Cual ...? "),nl,
     read_line_to_string(user_input,Oracion4),
     dividir_palabras(Oracion4, ListaPalabras4),
     oracion(ListaPalabras4, L4),
     buscar_nombre_establecimiento(ListaPalabras4,NomEst),
-    write("¿En donde queda?"),
+    write("¿Donde se encuentra ...? "),nl,
     read_line_to_string(user_input,Oracion5),
     dividir_palabras(Oracion5, ListaPalabras5),
     oracion(ListaPalabras5, _),
@@ -102,11 +101,11 @@ busqueda_intermedio_aux(Inicio,Destino,Oracion,Z):-
 busqueda_intermedio_aux(Inicio,Destino,Oracion,Z):-
     dividir_palabras(Oracion, ListaPalabras),
     oracion(ListaPalabras, L3),
-    buscar_negacion(ListaPalabras,Z),
+    buscar_negacion(ListaPalabras,Z),!,
     busqueda_intermedio_negativa(Inicio,Destino,Oracion,Z).
 
 busqueda_intermedio(Inicio,Destino,Oracion,Z):-
-    write('¿Tiene algun destino intermedio?: '),
+    write('¿Tiene algun destino intermedio?: '),nl,
     read_line_to_string(user_input,Oracion),
     busqueda_intermedio_aux(Inicio,Destino,Oracion,Z).
 
@@ -115,6 +114,9 @@ busqueda_intermedio(Inicio,Destino,Oracion,Z):- mensaje_error, nl, busqueda_inte
 
 % Pruebas de interfaz
 testeo :-
+    write('Bienvenido a Wazelog la mejor logica para llegar a su destino'),
+    nl,
     consultar_inicio(Inicio),%PASO 1. OBTENER EL LUGAR DE INICIO/ORIGEN
     consultar_destino(Destino),
-    busqueda_intermedio(Inicio,Destino,_,_).
+    busqueda_intermedio(Inicio,Destino,_,_),nl,
+    format('Gracias por utilizar Wazelog').
