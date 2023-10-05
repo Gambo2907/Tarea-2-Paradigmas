@@ -13,6 +13,7 @@ lugar([orosi|S],S).
 %<<<<<<< HEAD
 establecimiento([supermercado|S],S).
 establecimiento([farmacia|S],S).
+establecimiento([restaurante|S],S).
 %=======
 
 %>>>>>>> 0d1c3eb82f007e1f316e58feb729b20ca9d88b79
@@ -79,7 +80,10 @@ nombre([wazelog|S],S).
 nombre_establecimiento([automercado|S],S).
 nombre_establecimiento([pali|S],S).
 nombre_establecimiento([fischel|S],S).
+nombre_establecimiento([candelaria|S],S).
 nombre_establecimiento([ampm|S],S).
+nombre_establecimiento([pizzahut|S],S).
+nombre_establecimiento([mcdonalds|S],S).
 
 preposicion([a|S],S).
 preposicion([ante|S],S).
@@ -94,7 +98,8 @@ preposicion([para|S],S).
 preposicion([por|S],S).
 
 negacion([no|S],S).
-
+negacion([negativo|S],S).
+negacion([ninguno|S],S).
 
 
 
@@ -154,6 +159,11 @@ sintagma_nominal(L, S):-
 sintagma_nominal(L, S):-
     articulo(L,S1),
     nombre_establecimiento(S1,S).
+sintagma_nominal(L, S):-
+    articulo(L,S1),
+    articulo(S1,S2),
+    establecimiento(S2,S).
+
 %Sintagma Verbal ---------------------------------------------------------------------------
 
 %Ej:viajar hacia cartago, estoy en cartago

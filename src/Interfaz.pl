@@ -64,8 +64,8 @@ consultar_inicio(Inicio):-
 consultar_inicio(Inicio):- mensaje_error, nl, consultar_inicio(Inicio).
 
 consultar_destino(Destino):-
-    write("Wazelog: Muy bien!"), nl,
-    write("Wazelog: Cual es su destino?: "), nl,
+    write("Wazelog: ¡Muy bien!"), nl,
+    write("Wazelog: ¿Cual es su destino?: "), nl,
     read_line_to_string(user_input,Oracion2),
     dividir_palabras(Oracion2, ListaPalabras2),
     oracion(ListaPalabras2, L2),
@@ -74,35 +74,33 @@ consultar_destino(Destino):-
 consultar_destino(Destino):- mensaje_error, nl, consultar_destino(Destino).
 
 busqueda_intermedio_positiva(Inicio,Destino,Oracion,Z,Int):-
-    write("¿Cual ...? "),nl,
+    write("Wazelog: ¿Cual "), write(Z),write("?: "),nl,
     read_line_to_string(user_input,Oracion4),
     dividir_palabras(Oracion4, ListaPalabras4),
     oracion(ListaPalabras4, L4),
     buscar_nombre_establecimiento(ListaPalabras4,NomEst),
-    write("¿Donde se encuentra ...? "),nl,
+    write(" Wazelog: ¿Donde se encuentra "),write(NomEst),write("?: "),nl,
     read_line_to_string(user_input,Oracion5),
     dividir_palabras(Oracion5, ListaPalabras5),
     oracion(ListaPalabras5, _),
     buscar_lugar(ListaPalabras5, Int),
     buscar(Inicio,Destino,Int,_,_,_,_,_,_,_).
 
+busqueda_intermedio_positiva(Inicio,Destino,Oracion,Z,Int):- mensaje_error, nl, busqueda_intermedio_positiva(Inicio,Destino,Oracion,Z,Int).
 
-busqueda_intermedio_negativa(Inicio,Destino,Oracion,Z):-
-    dividir_palabras(Oracion, ListaPalabras3),
-    oracion(ListaPalabras3, L6),
-    buscar_negacion(ListaPalabras3,Z),
-    buscar(Inicio,Destino,0,_,_,_,_,_,_,_),!.
+
 
 busqueda_intermedio_aux(Inicio,Destino,Oracion,Z):-
     dividir_palabras(Oracion, ListaPalabras),
     oracion(ListaPalabras, L3),
     buscar_establecimiento(ListaPalabras,Z),!,
     busqueda_intermedio_positiva(Inicio,Destino,Oracion,Z,_).
+
 busqueda_intermedio_aux(Inicio,Destino,Oracion,Z):-
     dividir_palabras(Oracion, ListaPalabras),
     oracion(ListaPalabras, L3),
     buscar_negacion(ListaPalabras,Z),!,
-    busqueda_intermedio_negativa(Inicio,Destino,Oracion,Z).
+    buscar(Inicio,Destino,0,_,_,_,_,_,_,_).
 
 busqueda_intermedio(Inicio,Destino,Oracion,Z):-
     write('¿Tiene algun destino intermedio?: '),nl,
