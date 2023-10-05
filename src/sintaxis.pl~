@@ -10,8 +10,12 @@ lugar([juanvinas|S],S).
 lugar([turrialba|S],S).
 lugar([cachi|S],S).
 lugar([orosi|S],S).
-lugar([supermercado|S],S).
-lugar([farmacia|S],S).
+%<<<<<<< HEAD
+establecimiento([supermercado|S],S).
+establecimiento([farmacia|S],S).
+%=======
+
+%>>>>>>> 0d1c3eb82f007e1f316e58feb729b20ca9d88b79
 
 pronombre([yo|S],S).
 pronombre([nosotros|S],S).
@@ -51,7 +55,7 @@ verbo([quiero|S],S).
 verbo([queremos|S],S).
 verbo([necesito|S],S).
 verbo([necesitamos|S],S).
-
+verbo([ubica|S],S).
 verbo([es|S],S).
 
 
@@ -89,15 +93,23 @@ preposicion([hasta|S],S).
 preposicion([para|S],S).
 preposicion([por|S],S).
 
+negacion([no|S],S).
+
 
 
 
 %Sintagmas-------------------------------------------------------------------------------
 sintagma_nominal(L,S):-
+    negacion(L,S).
+sintagma_nominal(L,S):-
     pronombre_reflexivo(L,S1),
     verbo(S1,S).
 sintagma_nominal(L,S):-
     nombre(L,S).
+
+sintagma_nominal(L,S):-
+    establecimiento(L,S).
+
 sintagma_nominal(L, S):-
     pronombre(L,S).
 
@@ -118,6 +130,10 @@ sintagma_nominal(L, S):-
 sintagma_nominal(L, S):-
     articulo(L,S1),
     lugar(S1,S).
+
+sintagma_nominal(L, S):-
+    articulo(L,S1),
+    establecimiento(S1,S).
 %Ej hola wazelog
 sintagma_nominal(L,S):-
     saludo(L,S1),
