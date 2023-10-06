@@ -1,3 +1,5 @@
+%Lugar
+%lugar(Lugar, Oración)
 lugar([sanjose|S],S).
 lugar([corralillo|S],S).
 lugar([musgoverde|S],S).
@@ -11,11 +13,14 @@ lugar([turrialba|S],S).
 lugar([cachi|S],S).
 lugar([orosi|S],S).
 
+%establecimiento
+%establecimiento(Establecimiento, Oración)
 establecimiento([supermercado|S],S).
 establecimiento([farmacia|S],S).
 establecimiento([restaurante|S],S).
 
-
+%Pronombre
+%pronombre(Pronombre, Oración)
 pronombre([yo|S],S).
 pronombre([nosotros|S],S).
 pronombre([nosotras|S],S).
@@ -30,6 +35,8 @@ sustantivo([origen|S],S).
 sustantivo([salida|S],S).
 sustantivo([inicio|S],S).
 
+%Verbo
+%verbo(Verbo, Oración)
 verbo([dirijo|S],S).
 verbo([dirijimos|S],S).
 verbo([vamos|S],S).
@@ -60,6 +67,8 @@ verbo([tengo|S],S).
 verbo([tenemos|S],S).
 verbo([tienen|S],S).
 
+%Artículo
+%articulo(Artículo, Oración)
 articulo([un|S],S).
 articulo([una|S],S).
 articulo([unos|S],S).
@@ -70,12 +79,21 @@ articulo([la|S],S).
 articulo([las|S],S).
 articulo([al|S],S).
 
+%Saludo
+%saludo(Saludo, Oración)
 saludo([hola|S],S).
 saludo([hey|S],S).
 
+%Conjucion
+%conjucion(Conjucion, Oración)
 conjucion([que|S],S).
 
+%Nombre
+%nombre(nombre, Oración)
 nombre([wazelog|S],S).
+
+%nombre_establecimiento
+%nombre_establecimiento(nombre_establecimiento, Oración)
 nombre_establecimiento([automercado|S],S).
 nombre_establecimiento([pali|S],S).
 nombre_establecimiento([fischel|S],S).
@@ -87,6 +105,8 @@ nombre_establecimiento([tenedorargentino|S],S).
 nombre_establecimiento([pizzahut|S],S).
 nombre_establecimiento([mcdonalds|S],S).
 
+%preposicion
+%preposicion(preposicion, Oración)
 preposicion([a|S],S).
 preposicion([ante|S],S).
 preposicion([bajo|S],S).
@@ -99,6 +119,8 @@ preposicion([hasta|S],S).
 preposicion([para|S],S).
 preposicion([por|S],S).
 
+%negacion
+%negacion(negacion, Oración)
 negacion([no|S],S).
 negacion([negativo|S],S).
 negacion([ninguno|S],S).
@@ -107,11 +129,13 @@ negacion([ninguno|S],S).
 
 %Sintagmas-------------------------------------------------------------------------------
 %Ej: pizzahut, fischel, pali
+
 sintagma_nominal(L,S):-
     nombre_establecimiento(L,S).
 %Ej: no, negativo
 sintagma_nominal(L,S):-
     negacion(L,S).
+
 
 sintagma_nominal(L,S):-
     pronombre_reflexivo(L,S1),
