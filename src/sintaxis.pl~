@@ -10,13 +10,11 @@ lugar([juanvinas|S],S).
 lugar([turrialba|S],S).
 lugar([cachi|S],S).
 lugar([orosi|S],S).
-%<<<<<<< HEAD
+
 establecimiento([supermercado|S],S).
 establecimiento([farmacia|S],S).
 establecimiento([restaurante|S],S).
-%=======
 
-%>>>>>>> 0d1c3eb82f007e1f316e58feb729b20ca9d88b79
 
 pronombre([yo|S],S).
 pronombre([nosotros|S],S).
@@ -58,9 +56,10 @@ verbo([necesito|S],S).
 verbo([necesitamos|S],S).
 verbo([ubica|S],S).
 verbo([es|S],S).
+verbo([tengo|S],S).
+verbo([tenemos|S],S).
+verbo([tienen|S],S).
 
-
-articulo([a|S],S).
 articulo([un|S],S).
 articulo([una|S],S).
 articulo([unos|S],S).
@@ -80,7 +79,13 @@ nombre([wazelog|S],S).
 nombre_establecimiento([automercado|S],S).
 nombre_establecimiento([pali|S],S).
 nombre_establecimiento([fischel|S],S).
+nombre_establecimiento([candelaria|S],S).
+nombre_establecimiento([labomba|S],S).
 nombre_establecimiento([ampm|S],S).
+nombre_establecimiento([maxipali|S],S).
+nombre_establecimiento([tenedorargentino|S],S).
+nombre_establecimiento([pizzahut|S],S).
+nombre_establecimiento([mcdonalds|S],S).
 
 preposicion([a|S],S).
 preposicion([ante|S],S).
@@ -101,20 +106,23 @@ negacion([ninguno|S],S).
 
 
 %Sintagmas-------------------------------------------------------------------------------
+%Ej: pizzahut, fischel, pali
 sintagma_nominal(L,S):-
     nombre_establecimiento(L,S).
-
+%Ej: no, negativo
 sintagma_nominal(L,S):-
     negacion(L,S).
+
 sintagma_nominal(L,S):-
     pronombre_reflexivo(L,S1),
     verbo(S1,S).
+%Wazelog
 sintagma_nominal(L,S):-
     nombre(L,S).
-
+%Farmacia
 sintagma_nominal(L,S):-
     establecimiento(L,S).
-
+%Yo
 sintagma_nominal(L, S):-
     pronombre(L,S).
 
@@ -135,7 +143,7 @@ sintagma_nominal(L, S):-
 sintagma_nominal(L, S):-
     articulo(L,S1),
     lugar(S1,S).
-
+%la farmacia
 sintagma_nominal(L, S):-
     articulo(L,S1),
     establecimiento(S1,S).
@@ -147,19 +155,21 @@ sintagma_nominal(L,S):-
 sintagma_nominal(L, S):-
     preposicion(L,S1),
     sintagma_nominal(S1,S).
-%
+
 sintagma_nominal(L, S):-
     preposicion(L,S1),
     preposicion(S1,S2),
     sintagma_nominal(S2,S).
-
+%Ej: La farmacia
 sintagma_nominal(L, S):-
     articulo(L,S1),
     nombre_establecimiento(S1,S).
+%Ej: Para el restaurante
 sintagma_nominal(L, S):-
-    articulo(L,S1),
+    preposicion(L,S1),
     articulo(S1,S2),
     establecimiento(S2,S).
+
 
 %Sintagma Verbal ---------------------------------------------------------------------------
 
@@ -186,7 +196,9 @@ sintagma_verbal(L,S):-
     preposicion(S1,S2),
     sintagma_nominal(S2,S).
 
-
+sintagma_verbal(L,S):-
+    verbo(L, S1),
+    conjucion(S1,S).
 
 %Oraciones ----------------------------------------------------------------------------------------------
 
@@ -208,7 +220,7 @@ oracion(L,S):-
     sintagma_nominal(L,S1),
     sintagma_verbal(S1,S).
 
-
+%Ej:nos vamos a cartago.
 oracion(L,S):-
     pronombre_reflexivo(L,S1),
     verbo(S1,S2),

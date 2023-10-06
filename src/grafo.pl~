@@ -72,25 +72,3 @@ findminpath(_, _, W, P) :- solution(W,P), retract(solution(W,P)).
 
 
 
-
-ruta_mas_corta(Inicio, Fin, Ruta, Distancia) :-
-    ruta_mas_corta(Inicio, Fin, [Inicio], Ruta, Distancia).
-
-ruta_mas_corta(Inicio, Inicio, Ruta, Ruta, 0).
-
-ruta_mas_corta(Inicio, Fin, Visitados, Ruta, Distancia) :-
-    arista(Inicio, Siguiente, Peso),
-    \+ member(Siguiente, Visitados),
-    append(Visitados, [Siguiente], NuevosVisitados),
-    ruta_mas_corta(Siguiente, Fin, NuevosVisitados, RutaRestante, DistanciaRestante),
-    Distancia is Peso + DistanciaRestante,
-    Ruta = [Inicio | RutaRestante],
-    not((ruta_mas_corta(Siguiente, Fin, _, OtraDistancia), OtraDistancia < Distancia)).
-
-
-ruta_mas_corta_con_intermedio(Inicio, Intermedio, Fin, Ruta, Distancia) :-
-    ruta_mas_corta(Inicio, Intermedio, Ruta1, Distancia1),
-    ruta_mas_corta(Intermedio, Fin, Ruta2, Distancia2),
-    append(Ruta1, Ruta2, Ruta),
-    Distancia is Distancia1 + Distancia2.
-
